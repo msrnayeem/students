@@ -1,0 +1,23 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Manage Student</title>
+</head>
+<body>
+    <div class="container body-content"> 
+        @foreach(var student in ViewBag.StudentData)
+            {
+                <p>@student.id</p>
+                <p>@student.name</p>
+            }
+        
+    </div>
+</body>
+</html>

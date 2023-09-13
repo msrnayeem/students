@@ -1,0 +1,180 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="studentsModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Class Table">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Created Date" Type="date" Nullable="false" />
+          <Property Name="Modification Date" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Student Table">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="DOB" Type="date" Nullable="false" />
+          <Property Name="ClassId" Type="int" Nullable="false" />
+          <Property Name="Created Date" Type="date" Nullable="false" />
+          <Property Name="Modification Date" Type="date" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Class Table_Class Table">
+          <End Role="Class Table" Type="Self.Class Table" Multiplicity="1" />
+          <End Role="Class Table1" Type="Self.Class Table" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Class Table">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Class Table1">
+              <PropertyRef Name="Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Student Table_Student Table">
+          <End Role="Class Table" Type="Self.Class Table" Multiplicity="1" />
+          <End Role="Student Table" Type="Self.Student Table" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Class Table">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Student Table">
+              <PropertyRef Name="ClassId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="studentsModelStoreContainer">
+          <EntitySet Name="Class Table" EntityType="Self.Class Table" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Student Table" EntityType="Self.Student Table" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Class Table_Class Table" Association="Self.FK_Class Table_Class Table">
+            <End Role="Class Table" EntitySet="Class Table" />
+            <End Role="Class Table1" EntitySet="Class Table" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Student Table_Student Table" Association="Self.FK_Student Table_Student Table">
+            <End Role="Class Table" EntitySet="Class Table" />
+            <End Role="Student Table" EntitySet="Student Table" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="studentsModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Class_Table">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Created_Date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Modification_Date" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="Class_Table1" Relationship="Self.FK_Class_Table_Class_Table" FromRole="Class_Table" ToRole="Class_Table1" />
+          <NavigationProperty Name="Class_Table2" Relationship="Self.FK_Class_Table_Class_Table" FromRole="Class_Table1" ToRole="Class_Table" />
+          <NavigationProperty Name="Student_Table" Relationship="Self.FK_Student_Table_Student_Table" FromRole="Class_Table" ToRole="Student_Table" />
+        </EntityType>
+        <EntityType Name="Student_Table">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Guid" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DOB" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="ClassId" Type="Int32" Nullable="false" />
+          <Property Name="Created_Date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Modification_Date" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="Class_Table" Relationship="Self.FK_Student_Table_Student_Table" FromRole="Student_Table" ToRole="Class_Table" />
+        </EntityType>
+        <Association Name="FK_Class_Table_Class_Table">
+          <End Role="Class_Table" Type="Self.Class_Table" Multiplicity="1" />
+          <End Role="Class_Table1" Type="Self.Class_Table" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Class_Table">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Class_Table1">
+              <PropertyRef Name="Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Student_Table_Student_Table">
+          <End Role="Class_Table" Type="Self.Class_Table" Multiplicity="1" />
+          <End Role="Student_Table" Type="Self.Student_Table" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Class_Table">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Student_Table">
+              <PropertyRef Name="ClassId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="studentsEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Class_Tables" EntityType="Self.Class_Table" />
+          <EntitySet Name="Student_Tables" EntityType="Self.Student_Table" />
+          <AssociationSet Name="FK_Class_Table_Class_Table" Association="Self.FK_Class_Table_Class_Table">
+            <End Role="Class_Table" EntitySet="Class_Tables" />
+            <End Role="Class_Table1" EntitySet="Class_Tables" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Student_Table_Student_Table" Association="Self.FK_Student_Table_Student_Table">
+            <End Role="Class_Table" EntitySet="Class_Tables" />
+            <End Role="Student_Table" EntitySet="Student_Tables" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="studentsModelStoreContainer" CdmEntityContainer="studentsEntities">
+          <EntitySetMapping Name="Class_Tables">
+            <EntityTypeMapping TypeName="studentsModel.Class_Table">
+              <MappingFragment StoreEntitySet="Class Table">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Created_Date" ColumnName="Created Date" />
+                <ScalarProperty Name="Modification_Date" ColumnName="Modification Date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Student_Tables">
+            <EntityTypeMapping TypeName="studentsModel.Student_Table">
+              <MappingFragment StoreEntitySet="Student Table">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="DOB" ColumnName="DOB" />
+                <ScalarProperty Name="ClassId" ColumnName="ClassId" />
+                <ScalarProperty Name="Created_Date" ColumnName="Created Date" />
+                <ScalarProperty Name="Modification_Date" ColumnName="Modification Date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
